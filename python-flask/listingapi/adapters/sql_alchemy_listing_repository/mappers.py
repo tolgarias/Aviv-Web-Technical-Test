@@ -49,9 +49,7 @@ class ListingHistoryMapper:
     @staticmethod
     def from_entity_to_model(listing_history: entities.ListingHistoryEntity) -> ListingHistoryModel:
         listing_history_model = ListingHistoryModel(
-            listing_id=listing_history.listing_id,
             price=listing_history.latest_price_eur,
-            created_date=listing_history.created_date,
         )
         return listing_history_model
 
