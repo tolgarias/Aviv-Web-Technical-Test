@@ -19,7 +19,7 @@ class SqlAlchemyListingRepository(ports.ListingRepository):
         data = mappers.ListingMapper.from_model_to_dict(listing_model)
         return data
 
-    def get_all(self) -> list[dict]:
+    def get_all(self) -> list:
         listing_models = self.db_session.query(models.ListingModel).all()
         listings = [
             mappers.ListingMapper.from_model_to_dict(listing)

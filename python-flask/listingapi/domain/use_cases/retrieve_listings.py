@@ -5,6 +5,6 @@ class RetrieveListings:
     def __init__(self, listing_repository: ports.ListingRepository):
         self.listing_repository = listing_repository
 
-    def perform(self) -> list[dict]:
+    def perform(self) -> list:
         listings = self.listing_repository.get_all()
         return listings

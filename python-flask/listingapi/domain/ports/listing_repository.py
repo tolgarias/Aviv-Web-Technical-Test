@@ -13,7 +13,7 @@ class ListingRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_all(self) -> list[dict]:
+    def get_all(self) -> list:
         pass
 
     @abc.abstractmethod
