@@ -43,7 +43,7 @@ def put_listing(id_: int) -> tuple[Response, int]:
 def get_price_history(id_: int) -> tuple[Response, int]:
     """Get price history."""
     try:
-        listing__history_data = registry.retrieve_listing_history_use_case.perform(id_)
+        listing_history_data = registry.retrieve_listing_history_use_case.perform(id_)
     except exceptions.ListingNotFound:
         raise NotFound
-    return jsonify(listing__history_data), 200
+    return jsonify(listing_history_data), 200
