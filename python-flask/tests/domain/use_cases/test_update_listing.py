@@ -27,3 +27,14 @@ class TestUpdateListing:
         assert updated_listing["name"] == "My new name"
         assert updated_listing["created_date"] == "2023-01-18T08:50:03.761691"
         assert updated_listing["updated_date"] == "2023-01-19T08:50:03.761691"
+
+        persisted_listing_history = persist_listing_use_case.listing_repository.get_listing_history(1)
+        assert len(persisted_listing_history) == 2
+        assert persisted_listing_history[0]["listing_id"] == 1
+        assert persisted_listing_history[0]["id"] == 1
+        assert persisted_listing_history[0]["created_date"] == "2023-01-18T08:50:03.761691"
+
+        assert persisted_listing_history[1]["listing_id"] == 1
+        assert persisted_listing_history[1]["id"] == 2
+        assert persisted_listing_history[1]["created_date"] == "2023-01-19T08:50:03.761691"
+
