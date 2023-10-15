@@ -4,7 +4,6 @@ from typing import Optional
 from sqlalchemy import Column, DateTime, Float, Integer, String
 from sqlalchemy.orm import declarative_base
 
-
 Base = declarative_base()
 
 
@@ -41,3 +40,13 @@ class ListingModel(Base):
 
     # contact
     contact_phone_number: Optional[str] = Column(String, nullable=True, default=None)
+
+
+# Model for listing history
+class ListingHistoryModel(Base):
+    __tablename__ = "listing_history"
+
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    listing_id: int = Column(Integer, nullable=False)
+    created_date: datetime = Column(DateTime, nullable=False)
+    price: float = Column(Float, nullable=False)

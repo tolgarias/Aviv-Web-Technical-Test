@@ -40,3 +40,11 @@ class SqlAlchemyListingRepository(ports.ListingRepository):
 
         listing_dict = mappers.ListingMapper.from_model_to_dict(listing_model)
         return listing_dict
+
+    # for initial listing history test
+    def create_listing_history(self, listing_history: entities.ListingHistoryEntity) -> dict:
+        listing_history_model = mappers.ListingHistoryMapper.from_entity_to_model(listing_history)
+        self.db_session.add(listing_history_model)
+        self.db_session.commit()
+        data = mappers.ListingHistoryMapper.from_model_to_dict(listing_history_model)
+        return data
