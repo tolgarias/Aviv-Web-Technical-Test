@@ -42,9 +42,8 @@ def put_listing(id_: int) -> tuple[Response, int]:
 @app.route("/listings/<int:id_>/prices", methods=["GET"])
 def get_price_history(id_: int) -> tuple[Response, int]:
     """Get price history."""
-    # TODO: implement this
-    mock_response = [
-        {"price_eur": 100000, "created_date": "2023-01-12T09:23:36Z"},
-        {"price_eur": 150000, "created_date": "2023-01-17T08:17:32Z"},
-    ]
-    return jsonify(mock_response), 200
+    try:
+        listing_history_data = registry.retrieve_listing_history_use_case.perform(id_)
+    except exceptions.ListingNotFound:
+        raise NotFound
+    return jsonify(listing_history_data), 200

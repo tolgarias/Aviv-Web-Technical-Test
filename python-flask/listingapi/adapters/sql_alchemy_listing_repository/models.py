@@ -1,9 +1,8 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, DateTime, Float, Integer, String
-from sqlalchemy.orm import declarative_base
-
+from sqlalchemy import Column, DateTime, Float, Integer, String, ForeignKey
+from sqlalchemy.orm import declarative_base, relationship, Mapped
 
 Base = declarative_base()
 
@@ -41,3 +40,14 @@ class ListingModel(Base):
 
     # contact
     contact_phone_number: Optional[str] = Column(String, nullable=True, default=None)
+    listing_history = relationship('ListingHistoryModel', backref='ListingModel')
+
+
+# Model for listing history
+class ListingHistoryModel(Base):
+    __tablename__ = "listing_history"
+
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    listing_id: int = Column(Integer, ForeignKey("listing.id"), nullable=False)
+    created_date: datetime = Column(DateTime, default=lambda: datetime.utcnow(), nullable=False)
+    price: float = Column(Float, nullable=False)

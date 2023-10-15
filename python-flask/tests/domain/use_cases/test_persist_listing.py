@@ -35,6 +35,7 @@ class TestPersistListing:
     def test_persist_listing(
         self,
         persist_listing_use_case: use_cases.PersistListing,
+        retrieve_listing_history_use_case: use_cases.RetrieveListingHistory,
         listing_entity: entities.ListingEntity,
     ) -> None:
         persisted_listing_dict = persist_listing_use_case.listing_repository.create(
@@ -58,3 +59,8 @@ class TestPersistListing:
         assert persisted_listing_dict["contact_phone_number"] == ""
         assert persisted_listing_dict["created_date"] == "2023-01-18T08:50:03.761691"
         assert persisted_listing_dict["updated_date"] == "2023-01-18T08:50:03.761691"
+
+        persisted_listing_history = persist_listing_use_case.listing_repository.get_listing_history(1)
+        assert persisted_listing_history[0]["listing_id"] == 1
+        assert persisted_listing_history[0]["id"] == 1
+        assert len(persisted_listing_history) == 1

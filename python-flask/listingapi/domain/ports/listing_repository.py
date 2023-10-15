@@ -13,9 +13,13 @@ class ListingRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_all(self) -> list[dict]:
+    def get_all(self) -> list:
         pass
 
     @abc.abstractmethod
     def update(self, id_: int, listing: entities.ListingEntity) -> dict:
+        pass
+
+    @abc.abstractmethod
+    def get_listing_history(self, listing_id_: int) -> list:
         pass
