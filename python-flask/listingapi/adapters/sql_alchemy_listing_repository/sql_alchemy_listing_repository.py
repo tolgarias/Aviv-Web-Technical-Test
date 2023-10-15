@@ -35,9 +35,10 @@ class SqlAlchemyListingRepository(ports.ListingRepository):
 
     def update(self, listing_id: int, listing: entities.ListingEntity) -> dict:
         existing_listing = self.db_session.get(models.ListingModel, listing_id)
-        created_at = existing_listing.created_date
         if existing_listing is None:
             raise exceptions.ListingNotFound
+
+        created_at = existing_listing.created_date
 
         # removed to keep history
         # self.db_session.delete(existing_listing)
@@ -55,6 +56,9 @@ class SqlAlchemyListingRepository(ports.ListingRepository):
         return listing_dict
 
     def get_listing_history(self, listing_id: int) -> list:
+        existing_listing = self.db_session.get(models.ListingModel, listing_id)
+        if existing_listing is None:
+            raise exceptions.ListingNotFound
         listing_history_models = self.db_session.query(models.ListingHistoryModel).filter_by(
             listing_id=listing_id).all()
         listing_histories = [
